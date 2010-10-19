@@ -5,33 +5,20 @@
 
 package clases;
 import java.sql.*;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  *
  * @author Sandsower
  */
 public class movimientosBD {
-    public Connection conectarBD(String username, String password){
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            String connectionUrl = "jdbc:mysql://localhost/javaprueba?user="+username+"&password="+password;
-            Connection con = DriverManager.getConnection(connectionUrl);
-            return con;
-        }
-        catch(SQLException e){
-            System.out.println("SQL Exception: "+e.toString());
-        }
-        catch(ClassNotFoundException e){
-            System.out.println("Class not found Exception: "+e.toString());
-        }
-        return null;
-    }
 
     public int agregarPersona(Persona p){
         try {
+
             Connection con = this.conectarBD("root", "gameover");
+
+            ConexionBD connect = new ConexionBD();
+            Connection con = connect.getConnect();
+
             Statement stmt = null;
             String query = "INSERT INTO Persona(Nombre,Apellido_Paterno,Apellido_Materno,Calle,Num_Calle,Colonia,Estado,Municipio,Edad,Telefono) "
                     + " VALUES('" + p.getNombre() + "','" + p.getApellidoPaterno() + "','" + p.getApellidoMaterno() + "','" + p.getCalle() + "',"
@@ -49,7 +36,8 @@ public class movimientosBD {
 
     public Persona obtenerPersona(int id){
         try{
-            Connection con = this.conectarBD("root", "13450811");
+            ConexionBD connect = new ConexionBD();
+            Connection con = connect.getConnect();
             Persona p = null;
             ResultSet rs = null;
             Statement stmt = null;
@@ -71,7 +59,8 @@ public class movimientosBD {
 
     public static void main(String[] args) {
         movimientosBD mov = new movimientosBD();
-        if(mov.conectarBD("root", "13450811") != null){
+        ConexionBD connect = new ConexionBD();
+        if(connect.getConnect() != null){
             System.out.println("Conexion correcta.");
         }
     }
