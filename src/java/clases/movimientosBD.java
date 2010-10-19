@@ -5,12 +5,17 @@
 
 package clases;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Sandsower
  */
 public class movimientosBD {
+
+    private ResultSet lasPersonas;
 
     public int agregarPersona(Persona p){
         try {
@@ -78,15 +83,43 @@ public class movimientosBD {
              con = connect.getConnect();
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
-
+            this.setLasPersonas(rs);
             return rs;
 
     }
+
+    public ArrayList personas(){
+        try {
+            ArrayList unasPersonas = new ArrayList();
+            while (this.getLasPersonas().next()) {
+                unasPersonas.add(this.getLasPersonas().getString("ID"));
+            }
+            return unasPersonas;
+        } catch (SQLException ex) {
+            Logger.getLogger(movimientosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         movimientosBD mov = new movimientosBD();
         ConexionBD connect = new ConexionBD();
         if(connect.getConnect() != null){
             System.out.println("Conexion correcta.");
         }
+    }
+
+    /**
+     * @return the lasPersonas
+     */
+    public ResultSet getLasPersonas() {
+        return lasPersonas;
+    }
+
+    /**
+     * @param lasPersonas the lasPersonas to set
+     */
+    public void setLasPersonas(ResultSet lasPersonas) {
+        this.lasPersonas = lasPersonas;
     }
 }
