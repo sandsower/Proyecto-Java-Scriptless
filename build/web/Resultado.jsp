@@ -1,11 +1,12 @@
 <%-- 
     Document   : Resultado
     Created on : 12/10/2010, 09:43:30 PM
-    Author     : Sandsower & garrison
+    Author     : Sandsower
 --%>
+
+<%@page import="clases.movimientosBD"%>
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="conexion" class="clases.movimientosBD" scope="page" />
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -19,7 +20,14 @@
         Selecciona el ID de la persona a desplegar:<br>
         <select name="ID">
         <%
-            ResultSet rs = conexion.consultarPersonas();
+            Statement stmt = null;
+            ResultSet rs = null;
+            movimientosBD m = new movimientosBD();
+            //SQL query command
+            String SQL = "SELECT * FROM Persona";
+            Connection con = m.conectarBD("root", "gameover");
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
             while (rs.next()) {
         %>
             <option><%=rs.getString("ID")%></option>

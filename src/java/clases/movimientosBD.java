@@ -5,6 +5,7 @@
 
 package clases;
 import java.sql.*;
+
 /**
  *
  * @author Sandsower
@@ -18,14 +19,26 @@ public class movimientosBD {
             Connection con = connect.getConnect();
 
             Statement stmt = null;
-            String query = "INSERT INTO Persona(Nombre,Apellido_Paterno,Apellido_Materno,Calle,Num_Calle,Colonia,Estado,Municipio,Edad,Telefono) "
-                    + " VALUES('" + p.getNombre() + "','" + p.getApellidoPaterno() + "','" + p.getApellidoMaterno() + "','" + p.getCalle() + "',"
-                    + p.getNumeroCalle() + ",'" + p.getColonia() + "','" + p.getEstado() + "','" + p.getMunicipio() + "'," + p.getEdad() + "," +
-                    p.getTelefono() + ")";
-            stmt = con.createStatement();
-            int rowsAffected = stmt.executeUpdate(query);
+            int rows_updated = 0;
+                    PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement
+                            ("Insert into empleado(Nombre,Apellido_Paterno,Apellido_Materno,Calle,Num_Calle,Colonia,Estado,Municipio,Edad,Telefono)"
+                            +  "VALUES(?,?,?,?,?,?,?,?,?,?)");
+                    stmt1.setString(1, p.getNombre());
+                    stmt1.setString(2, p.getApellidoPaterno());
+                    stmt1.setString(3, p.getApellidoMaterno());
+                    stmt1.setString(4, p.getCalle());
+                    stmt1.setInt(5,p.getNumeroCalle());
+                    stmt1.setString(6,p.getColonia() );
+                    stmt1.setString(7,p.getEstado() );
+                    stmt1.setString(8,p.getMunicipio() );
+                    stmt1.setInt(9,p.getEdad() );
+                    stmt1.setInt(10, p.getTelefono());
+                    rows_updated = stmt1.executeUpdate();
+
+           
+            rows_updated = stmt1.executeUpdate();
             con.close();
-            return rowsAffected;
+            return rows_updated;
         } catch (SQLException ex) {
             System.out.println("SQL Exception: "+ ex.toString());
         }
@@ -58,7 +71,6 @@ public class movimientosBD {
     public ResultSet consultarPersonas () throws SQLException{
          ConexionBD connect = new ConexionBD();
          Connection con = connect.getConnect();
-
          Statement stmt = null;
             ResultSet rs = null;
             //SQL query command
