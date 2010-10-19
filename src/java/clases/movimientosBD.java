@@ -21,7 +21,7 @@ public class movimientosBD {
             Statement stmt = null;
             int rows_updated = 0;
                     PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement
-                            ("Insert into empleado(Nombre,Apellido_Paterno,Apellido_Materno,Calle,Num_Calle,Colonia,Estado,Municipio,Edad,Telefono)"
+                            ("Insert into persona(Nombre,Apellido_Paterno,Apellido_Materno,Calle,Num_Calle,Colonia,Estado,Municipio,Edad,Telefono)"
                             +  "VALUES(?,?,?,?,?,?,?,?,?,?)");
                     stmt1.setString(1, p.getNombre());
                     stmt1.setString(2, p.getApellidoPaterno());
