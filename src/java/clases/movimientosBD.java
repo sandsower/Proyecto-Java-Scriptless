@@ -15,7 +15,15 @@ import java.util.logging.Logger;
  */
 public class movimientosBD {
 
-    private ResultSet lasPersonas;
+    private ArrayList lasPersonas;
+
+    public movimientosBD(){
+        try {
+            this.consultarPersonas();
+        } catch (SQLException ex) {
+            Logger.getLogger(movimientosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public int agregarPersona(Persona p){
         try {
@@ -47,12 +55,13 @@ public class movimientosBD {
     }
 
     public Persona obtenerPersona(int id){
-        try{
-            ConexionBD connect = new ConexionBD();
+         ConexionBD connect = new ConexionBD();
             Connection con = connect.getConnect();
             Persona p = null;
             ResultSet rs = null;
             Statement stmt = null;
+        try{
+           
             String query = "SELECT * FROM Persona WHERE ID = "+id;
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
@@ -66,35 +75,42 @@ public class movimientosBD {
         catch(SQLException e){
             System.out.println("SQL Exception: "+e.toString());
         }
+
+            finally{
+            try {
+                stmt.close();
+                rs.close();
+                connect.cerrarBD();
+            } catch (SQLException ex) {
+                }
+            }
         return null;
     }
 
-    public ResultSet consultarPersonas () throws SQLException{
+    public void consultarPersonas () throws SQLException{
          ConexionBD connect = new ConexionBD();
-         Connection con = connect.getConnect();
+         Connection con = null;
          Statement stmt = null;
             ResultSet rs = null;
             //SQL query command
             String SQL = "SELECT * FROM Persona";
-             con = connect.getConnect();
+        try {
+            con = connect.getConnect();
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
-            this.setLasPersonas(rs);
-            return rs;
-
-    }
-
-    public ArrayList personas(){
-        try {
             ArrayList unasPersonas = new ArrayList();
-            while (this.getLasPersonas().next()) {
-                unasPersonas.add(this.getLasPersonas().getString("ID"));
+            while (rs.next()) {
+                unasPersonas.add(rs.getString("ID"));
             }
-            return unasPersonas;
+            this.setLasPersonas(unasPersonas);
         } catch (SQLException ex) {
             Logger.getLogger(movimientosBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+            finally{
+                stmt.close();
+                rs.close();
+                connect.cerrarBD();
+            }
     }
 
     public static void main(String[] args) {
@@ -108,14 +124,14 @@ public class movimientosBD {
     /**
      * @return the lasPersonas
      */
-    public ResultSet getLasPersonas() {
+    public ArrayList getLasPersonas() {
         return lasPersonas;
     }
 
     /**
      * @param lasPersonas the lasPersonas to set
      */
-    public void setLasPersonas(ResultSet lasPersonas) {
+    public void setLasPersonas(ArrayList lasPersonas) {
         this.lasPersonas = lasPersonas;
     }
 }

@@ -4,6 +4,7 @@
     Author     : Sandsower
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="movimientos" scope="page" class="clases.movimientosBD"></jsp:useBean>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
@@ -17,8 +18,9 @@
         <form action="mostrarInfo.do" method="POST">
         Selecciona el ID de la persona a desplegar:<br>
         <select name="ID">
-        
-            <option>${movimientos.lasPersonas}</option>
+            <c:forEach var="ID" items="${movimientos.lasPersonas}">
+                <option>${ID}</option>
+            </c:forEach>
         </select>
         <br>
         <input type="submit"/>
