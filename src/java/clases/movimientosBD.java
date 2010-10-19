@@ -17,9 +17,7 @@ public class movimientosBD {
 
             ConexionBD connect = new ConexionBD();
             Connection con = connect.getConnect();
-
-            Statement stmt = null;
-            int rows_updated = 0;
+            
                     PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement
                             ("Insert into persona(Nombre,Apellido_Paterno,Apellido_Materno,Calle,Num_Calle,Colonia,Estado,Municipio,Edad,Telefono)"
                             +  "VALUES(?,?,?,?,?,?,?,?,?,?)");
@@ -33,10 +31,8 @@ public class movimientosBD {
                     stmt1.setString(8,p.getMunicipio() );
                     stmt1.setInt(9,p.getEdad() );
                     stmt1.setInt(10, p.getTelefono());
-                    rows_updated = stmt1.executeUpdate();
+                   int  rows_updated = stmt1.executeUpdate();
 
-           
-            rows_updated = stmt1.executeUpdate();
             con.close();
             return rows_updated;
         } catch (SQLException ex) {
