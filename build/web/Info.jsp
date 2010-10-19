@@ -1,7 +1,7 @@
 <%--
     Document   : Info
     Created on : 12/10/2010, 09:44:41 PM
-    Author     : Sandsower
+    Author     : Garrison
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
