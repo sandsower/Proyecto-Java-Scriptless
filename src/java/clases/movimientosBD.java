@@ -31,7 +31,7 @@ public class movimientosBD {
 
     public int agregarPersona(Persona p){
         try {
-            Connection con = this.conectarBD("root", "13450811");
+            Connection con = this.conectarBD("root", "gameover");
             Statement stmt = null;
             String query = "INSERT INTO Persona(Nombre,Apellido_Paterno,Apellido_Materno,Calle,Num_Calle,Colonia,Estado,Municipio,Edad,Telefono) "
                     + " VALUES('" + p.getNombre() + "','" + p.getApellidoPaterno() + "','" + p.getApellidoMaterno() + "','" + p.getCalle() + "',"
