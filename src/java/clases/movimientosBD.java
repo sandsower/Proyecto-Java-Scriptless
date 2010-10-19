@@ -14,8 +14,6 @@ public class movimientosBD {
     public int agregarPersona(Persona p){
         try {
 
-            Connection con = this.conectarBD("root", "gameover");
-
             ConexionBD connect = new ConexionBD();
             Connection con = connect.getConnect();
 

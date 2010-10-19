@@ -25,11 +25,7 @@
             movimientosBD m = new movimientosBD();
             //SQL query command
             String SQL = "SELECT * FROM Persona";
-<<<<<<< HEAD
             Connection con = m.conectarBD("root", "gameover");
-=======
-            Connection con = m.conectarBD("root", "13450811");
->>>>>>> 946a981219774b108a14e26e2635f915c4f82364
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
             while (rs.next()) {
