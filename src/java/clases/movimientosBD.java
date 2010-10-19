@@ -55,6 +55,21 @@ public class movimientosBD {
         return null;
     }
 
+    public ResultSet consultarPersonas () throws SQLException{
+         ConexionBD connect = new ConexionBD();
+         Connection con = connect.getConnect();
+
+         Statement stmt = null;
+            ResultSet rs = null;
+            //SQL query command
+            String SQL = "SELECT * FROM Persona";
+             con = connect.getConnect();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+
+            return rs;
+
+    }
     public static void main(String[] args) {
         movimientosBD mov = new movimientosBD();
         ConexionBD connect = new ConexionBD();
