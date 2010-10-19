@@ -4,6 +4,7 @@
     Author     : Sandsower
 --%>
 
+<%@page import="clases.ConexionBD"%>
 <%@page import="clases.movimientosBD"%>
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,7 +26,8 @@
             movimientosBD m = new movimientosBD();
             //SQL query command
             String SQL = "SELECT * FROM Persona";
-            Connection con = m.conectarBD("root", "gameover");
+            ConexionBD connect = new ConexionBD();
+            Connection con = connect.getConnect();
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
             while (rs.next()) {

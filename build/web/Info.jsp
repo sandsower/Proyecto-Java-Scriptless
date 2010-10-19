@@ -4,12 +4,9 @@
     Author     : Sandsower
 --%>
 
-<%@page import="clases.Persona"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<jsp:useBean id="person" class="clases.Persona" scope="request" />
-<jsp:getProperty name="person" property="name" />
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -17,19 +14,16 @@
     </head>
     <body>
         <form action="Resultado.jsp" method="post">
-        <%
-        Persona p =(Persona) request.getAttribute("Persona");
-        %>
-            Nombre: <% person.getNombre(); %> <br>
-            Apellido Paterno: <% person.getApellidoPaterno(); %> <br>
-            Apellido Materno: <% person.getApellidoMaterno(); %> <br>
-            Edad: <%person.getEdad(); %> <br>
-            Calle: <% person.getCalle(); %> <br>
-            Numero de calle: <% person.getNumeroCalle(); %> <br>
-            Colonia: <% person.getColonia(); %> <br>
-            Estado: <% person.getEstado(); %> <br>
-            Municipio: <% person.getMunicipio(); %> <br>
-            Telefono (solo numeros): <% person.getTelefono(); %> <br>
+            Nombre: ${Persona.nombre} <br>
+            Apellido Paterno: ${Persona.apellidoPaterno} <br>
+            Apellido Materno: ${Persona.apellidoMaterno}  <br>
+            Edad: ${Persona.edad}  <br>
+            Calle: ${Persona.calle}  <br>
+            Numero de calle: ${Persona.numeroCalle}  <br>
+            Colonia: ${Persona.colonia}  <br>
+            Estado: ${Persona["estado"]}  <br>
+            Municipio: ${Persona.municipio}  <br>
+            Telefono (solo numeros): ${Persona.telefono}  <br>
             <input type="submit" value="Regresar"/>
         </form>
     </body>
